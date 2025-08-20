@@ -11,7 +11,7 @@ Description: Code to analyse transmission experiment data.
 File: Susceptibility_infectiousness.R
 Description: Code to analyse susceptibility and infectiousness data.
 
-File: Trib_model_3.0.nlogo
+File: Tribolium_model_final.nlogo
 Description: Agent based model from the paper.
 
 File: SI_analyses.R
