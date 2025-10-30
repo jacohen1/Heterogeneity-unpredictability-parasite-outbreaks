@@ -8,19 +8,19 @@ Details of the experimental setups for this work can be found in the paper title
 
 ## **Files and variables**
 
-### **File:** `Transmission_experiment.R`  
+### **File:** `Code/Transmission_experiment.R`  
 **Description:** Code to analyse transmission experiment data.
 
-### **File:** `Susceptibility_infectiousness.R`  
+### **File:** `Code/Susceptibility_infectiousness.R`  
 **Description:** Code to analyse susceptibility and infectiousness data.
 
-### **File:** `Tribolium_model_final.nlogo`  
+### **File:** `Code/Tribolium_model_final.nlogo`  
 **Description:** Agent-based model from the paper.
 
-### **File:** `SI_analyses.R`  
+### **File:** `Code/SI_analyses.R`  
 **Description:** Code to conduct the analyses presented in the Supplementary Information.
 
-### **File:** `transmission_experiment.csv`  
+### **File:** `Data/transmission_experiment.csv`  
 **Description:** Data from the transmission experiment.  
 **Variables:**
 - `treatment`: experimental treatment  
@@ -32,7 +32,7 @@ Details of the experimental setups for this work can be found in the paper title
 - `gut_gametocyst`: number of gametocysts  
 - `par_presence`: parasite presence/absence (0: absent; 1: present)  
 
-### **File:** `susceptibility.csv`  
+### **File:** `Data/susceptibility.csv`  
 **Description:** Data from the initial susceptibility assay.  
 **Variables:**
 - `colony`: colony identity  
@@ -46,7 +46,7 @@ Details of the experimental setups for this work can be found in the paper title
 - `par_presence`: parasite presence/absence (0: absent; 1: present)  
 - `experimental_repeat`: experimental repeat number  
 
-### **File:** `infectiousness.csv`  
+### **File:** `Data/infectiousness.csv`  
 **Description:** Data from the initial infectiousness assay.  
 **Variables:**
 - `colony`: colony identity  
@@ -56,7 +56,7 @@ Details of the experimental setups for this work can be found in the paper title
 - `par_presence`: parasite presence/absence (0: absent; 1: present)  
 - `experimental_repeat`: experimental repeat number  
 
-### **File:** `gametocyst_oocyst.csv`  
+### **File:** `Data/gametocyst_oocyst.csv`  
 **Description:** Data to test for covariation between gametocysts and oocysts.  
 **Variables:**
 - `colony`: colony identity  
@@ -67,7 +67,7 @@ Details of the experimental setups for this work can be found in the paper title
 - `par_presence`: parasite presence/absence (0: absent; 1: present)  
 - `experimental_repeat`: experimental repeat number  
 
-### **File:** `development.csv`  
+### **File:** `Data/development.csv`  
 **Description:** Data to analyse development rates.  
 **Variables:**
 - `colony`: colony identity  
