@@ -11,7 +11,7 @@ library(DHARMa)
 library(lme4)
 
 #read in data
-full <- read.csv(here("transmission_experiment.csv"), header = TRUE)
+full <- read.csv(here("Data", "transmission_experiment.csv"), header = TRUE)
 #for the treatment column, the letters correspond to treatments as follows:
 #A -- 100% Colony A
 #B -- 75% Colony A
@@ -70,7 +70,7 @@ summary(int.posthoc)
 #get estimate for mean intensity per treatment
 int.means <- as.data.frame(summary(int.posthoc$emmeans, type = "response"))
 
-#### PREVALENCE - GENERATE EXPECTED VALUES ####
+#### PREVALENCE - GENERATE NULL EXPECTATIONS ####
 #create blank matrix
 prev_vals <- matrix(nrow = 10000, ncol = 3)
 
@@ -132,7 +132,7 @@ for(i in 1:nrow(prev_pred)){
 
 colnames(prev_pred) <- c("treatment", "mean", "sd", "conf.low", "conf.high")
 
-#### INTENSITY - GENERATE EXPECTED VALUES ####
+#### INTENSITY - GENERATE NULL EXPECTATIONS ####
 #get dispersion parameter from intensity model
 theta <- lme4:::getNBdisp(int.mod)
 

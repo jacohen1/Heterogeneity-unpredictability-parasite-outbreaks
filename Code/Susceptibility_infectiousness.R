@@ -9,9 +9,9 @@ library(emmeans)
 library(DHARMa)
 library(lme4)
 
-#read in data #CHANGE ALL THIS TO HERE() SYNTAX
-susc <- read.csv(here("susceptibility.csv"), header = TRUE)
-inf <- read.csv(here("infectiousness.csv"), header = TRUE)
+#read in data
+susc <- read.csv(here("Data", "susceptibility.csv"), header = TRUE)
+inf <- read.csv(here("Data", "infectiousness.csv"), header = TRUE)
 
 #### SUSCEPTIBILITY - DATA RE-STRUCTURING ####
 #remove dead, pupated, bad dissections
@@ -22,7 +22,7 @@ susc <- susc %>%
   mutate(no_gut_parasites = as.integer(no_gut_parasites)) %>%
   mutate(across(c(colony, group, experimental_repeat, day_removed), as.factor))
 
-#get only experimental_repeatal individuals
+#get only experimental_repeat individuals
 susc.exp <- susc %>%
   filter(group == "experimental")
 
