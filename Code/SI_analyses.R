@@ -110,6 +110,7 @@ var_mean <- as.data.frame(aggregate(value ~ colony + experimental_repeat, data_a
 var_mean <- do.call(data.frame, var_mean)
 names(var_mean)[3:4] <- c("mean", "var")
 var_mean$ratio <- var_mean$var/var_mean$mean
+var_mean$cv <- sqrt(var_mean$var)/var_mean$mean
 
 #test for differences in variance between colonies
 leveneTest(no_gut_parasites ~ colony, data = susc_int)
@@ -129,6 +130,7 @@ var_mean_inf <- as.data.frame(aggregate(value ~ colony + experimental_repeat, da
 var_mean_inf <- do.call(data.frame, var_mean_inf)
 names(var_mean_inf)[3:4] <- c("mean", "var")
 var_mean_inf$ratio <- var_mean_inf$var/var_mean_inf$mean
+var_mean_inf$cv <- sqrt(var_mean_inf$var)/var_mean_inf$mean
 
 #test for differences in variance between colonies
 leveneTest(oocysts ~ colony, data = inf)
@@ -283,8 +285,8 @@ mu_A <- 29.6
 mu_B <- 76.3
 
 #size parameter
-size_A <- 0.5573
-size_B <- 0.5573
+size_A <- 0.605
+size_B <- 0.562
 
 #Simulation function
 sim_one_intensity <- function(test_dispersion = FALSE){
