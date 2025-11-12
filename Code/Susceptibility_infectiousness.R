@@ -62,6 +62,11 @@ susc_int_mod <- glmer.nb(no_gut_parasites ~ colony + experimental_repeat + (1|da
 summary(susc_int_mod)
 #AIC 1934.2
 
+#test model where variance changes by colony
+susc_int_mod2 <- glmmTMB(no_gut_parasites ~ colony + experimental_repeat + (1|day_removed), dispformula = ~ colony, data = susc_int, family = nbinom2)
+summary(susc_int_mod2)
+#AIC 1936.1, so not as good
+
 #check fit
 susc_int_output <- simulateResiduals(fittedModel = susc_int_mod)
 plot(susc_int_output)
