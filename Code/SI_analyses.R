@@ -13,15 +13,23 @@ library(glmmTMB)
 library(car)
 
 #read in data
+#gametocysts/oocysts
 gam_ooc <- read.csv(here("Data", "gametocyst_oocyst.csv"), header = TRUE)
+#development
 dev <- read.csv(here("Data", "development.csv"), header = TRUE)
 
+#transmission experiment
 full <- read.csv(here("Data", "transmission_experiment.csv"), header = TRUE)
 #for the treatment column, the letters correspond to treatments as follows:
 #A -- 100% Colony A
 #B -- 75% Colony A
 #C -- 50% Colony A
 #D -- 25% Colony A
+
+#susceptibility/infectiousness
+susc <- read.csv(here("Data", "susceptibility.csv"), header = TRUE)
+inf <- read.csv(here("Data", "infectiousness.csv"), header = TRUE)
+
 
 #### TRANSMISSION EXPERIMENT DATA RE-STRUCTURING ####
 #adjust data structure
@@ -47,6 +55,26 @@ gam_ooc <- gam_ooc %>%
   mutate(across(c(colony, experimental_repeat, day_removed), as.factor)) %>% #other columns into factors for GLMM
   mutate(oocysts = as.integer(400*oocysts)) %>% #multiply oocyst count by 400 to get number of oocysts in entire sample
   filter(oocysts > 0) #only keep individuals who produced oocysts
+
+#### SUSCEPTIBILITY/INFECTIOUSNESS DATA RE-STRUCTURING ####
+
+#remove dead, pupated, bad dissections
+susc <- susc %>%
+  filter(!gamont %in% c("dead", "bad_dissection", "pupated")) %>%
+  mutate(across(c(trophont, gamont, gut_gametocyst, par_presence), as.integer)) %>% #turn columns into integers, rather than characters
+  mutate(no_gut_parasites = trophont + (2*gamont) + (2*gut_gametocyst)) %>% #calculate total number of gut parasites
+  mutate(no_gut_parasites = as.integer(no_gut_parasites)) %>%
+  mutate(across(c(colony, group, experimental_repeat, day_removed), as.factor))
+
+#get only experimental_repeat individuals
+susc.exp <- susc %>%
+  filter(group == "experimental")
+
+#get prevalence and intensity data sets
+susc_prev <- susc.exp
+susc_int <- susc.exp %>%
+  filter(no_gut_parasites > 0)
+
 
 #### GAMETOCYST/OOCYST - GLMM ####
 gam_mod <- glmer(oocysts ~ gametocysts + colony + experimental_repeat + (1|day_removed) + colony*gametocysts, data = gam_ooc,
@@ -82,26 +110,6 @@ summary(dev_posthoc)
 #development rate faster in unexposed than exposed
 
 #### TEST WHETHER VARIANCE IN SUSCEPTIBILITY & INFECTIOUSNESS DIFFERED AMONG COLONIES ####
-#read in data
-susc <- read.csv(here("Data", "susceptibility.csv"), header = TRUE)
-inf <- read.csv(here("Data", "infectiousness.csv"), header = TRUE)
-
-#remove dead, pupated, bad dissections
-susc <- susc %>%
-  filter(!gamont %in% c("dead", "bad_dissection", "pupated")) %>%
-  mutate(across(c(trophont, gamont, gut_gametocyst, par_presence), as.integer)) %>% #turn columns into integers, rather than characters
-  mutate(no_gut_parasites = trophont + (2*gamont) + (2*gut_gametocyst)) %>% #calculate total number of gut parasites
-  mutate(no_gut_parasites = as.integer(no_gut_parasites)) %>%
-  mutate(across(c(colony, group, experimental_repeat, day_removed), as.factor))
-
-#get only experimental_repeat individuals
-susc.exp <- susc %>%
-  filter(group == "experimental")
-
-#get prevalence and intensity data sets
-susc_prev <- susc.exp
-susc_int <- susc.exp %>%
-  filter(no_gut_parasites > 0)
 
 #get variance and mean data
 data_agg <- melt(susc.exp, id.vars = c("id", "day_dissected", "colony", "experimental_repeat"), measure.vars = c("no_gut_parasites"))
