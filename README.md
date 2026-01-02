@@ -1,8 +1,8 @@
 # Heterogeneity-unpredictability-parasite-outbreaks
 
-Data and code associated with the manuscript titled _"Host heterogeneity drives unpredictability in parasite outbreaks"_.
+Data and code associated with the manuscript titled _"Host heterogeneity and unpredictability in parasite outbreaks"_.
 
-Details of the experimental setups for this work can be found in the paper titled _“Host heterogeneity drives unpredictability in parasite outbreaks”_.
+Details of the experimental setups for this work can be found in the paper titled _“Host heterogeneity and unpredictability in parasite outbreaks”_.
 
 ---
 
